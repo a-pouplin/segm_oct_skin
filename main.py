@@ -23,6 +23,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--inDir', default='../data/', type=str)
     parser.add_argument('--outDir', default= '../experiments/', type=str)
+    parser.add_argument('--dataloader', default= 'skinOCT', type=str)  
 
     parser.add_argument('--bs', default=12, type=int)  # batchSize
     parser.add_argument('--me', default=20, type=int)  # max epoch
