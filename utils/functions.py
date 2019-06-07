@@ -40,10 +40,7 @@ def custom_trans(img):
 
 def get_exdir(opts):
     outDir = opts.outDir
-    dataloader_name = opts.dataloader
-    model_name = opts.model
-    loss_name = opts.loss
-    mainDir = join(outDir, dataloader_name, model_name, loss_name)
+    mainDir = join(outDir)
     experiment_index = 0
     exDir = join(mainDir, 'exp_{}'.format(experiment_index))
     while exists(exDir):

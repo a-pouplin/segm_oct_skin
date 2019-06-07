@@ -23,15 +23,14 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--inDir', default='../data/', type=str)
     parser.add_argument('--outDir', default= '../experiments/', type=str)
-    parser.add_argument('--dataloader', default= 'skinOCT', type=str)  
 
-    parser.add_argument('--bs', default=12, type=int)  # batchSize
+    parser.add_argument('--bs', default=16, type=int)  # batchSize
     parser.add_argument('--me', default=20, type=int)  # max epoch
     parser.add_argument('--lr', default=0.001, type=float) # learning rate
     parser.add_argument('--momentum', default=0.9, type=float) # decay frequency
 
     parser.add_argument('--kernel_num', default=4, type=int) # number of filters
-    parser.add_argument('--kernel_size', default=2**5, type=int) # size of filters
+    parser.add_argument('--kernel_size', default=4, type=int) # size of filters
     parser.add_argument('--depth', default=5, type=int) # num of layers
 
     parser.add_argument('--loss', default='CE', type=str) # loss mode # CE or MSE or focal
