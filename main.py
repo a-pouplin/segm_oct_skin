@@ -102,7 +102,7 @@ def train(model, trainset, valset, testset):
 
 
 def init_normal(m):
-    # try other initialisations 
+    # try other initialisations
     if type(m) == nn.Linear:
         nn.init.xavier_uniform(m.weight)
 
@@ -112,8 +112,7 @@ if __name__ == '__main__':
     opts = get_args()
 
     # getting the structure of your model
-    model = getattr(sys.modules[__name__], '{}'.format(opts.model))
-    model = model(depth=opts.depth, kernel_size=opts.kernel_size, kernel_num=opts.kernel_num, n_classes=3)
+    model = UNet(depth=opts.depth, kernel_size=opts.kernel_size, kernel_num=opts.kernel_num, n_classes=3)
 
     if model.useCUDA:
        model.cuda()
