@@ -9,17 +9,14 @@ from sklearn.metrics import confusion_matrix, jaccard_score
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataloader', default='Healthy', type=str)
-    parser.add_argument('--model', default='UNet', type=str)
-    parser.add_argument('--loss', default='BCE', type=str)
-    parser.add_argument('--nb', default='0', type=str) # number experimnets
+    parser.add_argument('--nb', default='0', type=str) # number id of the experiment
     # parser.add_argument('--threshold', default=0.5, type=float)
     parser.add_argument('--outDir', default= '../experiments/', type=str)
     return parser.parse_args()
 
 
 def load_result_test(opts):
-    exp_path = os.path.join(opts.outDir, opts.dataloader, opts.model, opts.loss, 'exp_{}'.format(opts.nb), 'result_test.npz')
+    exp_path = os.path.join(opts.outDir, 'exp_{}'.format(opts.nb), 'result_test.npz')
     res = np.load(exp_path)
     pred, true, ori = res['pred'], res['true'], res['ori']
     pred = 1*(pred>0.5)
@@ -60,7 +57,7 @@ def tableau(pred, true, ori, save=False, threshold=False):
 
 
 def load_loss(opts):
-    exp_folder = os.path.join(opts.outDir, opts.dataloader, opts.model, opts.loss, 'exp_{}'.format(opts.nb))
+    exp_folder = os.path.join(opts.outDir, 'exp_{}'.format(opts.nb))
     loss_ = np.load(os.path.join(exp_folder, 'loss_val.npz'))
     loss_val, loss_train = loss_['val'], loss_['train']
     me = len(loss_val)
@@ -69,16 +66,16 @@ def load_loss(opts):
     ax.plot(xaxis_val, loss_val, 'go', label='validation')
     ax.plot(loss_train, 'orange', label='training')
     legend = ax.legend(loc='center right', fontsize='small')
-    plt.ylabel(opts.loss)
+    plt.ylabel('loss')
     plt.xlabel('# batchs')
     plt.ylim(0,1.4)
-    plt.title('Loss value over training - {}'.format(opts.model))
+    plt.title('Loss value over training')
     plt.savefig(os.path.join(exp_folder, 'loss.png'))
     plt.close()
 
 
 def load_score(opts, threshold=0.5):
-    exp_folder = os.path.join(opts.outDir, opts.dataloader, opts.model, opts.loss, 'exp_{}'.format(opts.nb))
+    exp_folder = os.path.join(opts.outDir, 'exp_{}'.format(opts.nb))
     score_val = np.load(os.path.join(exp_folder, 'score_val.npz'))
     yt, yp = np.squeeze(score_val['true']), np.squeeze(score_val['pred'])
     yp = (yp > threshold)*1.
@@ -99,12 +96,10 @@ def load_score(opts, threshold=0.5):
     fig, ax = plt.subplots()
     ax.plot(metrics['jaccard'], label='jaccard index')
     ax.plot(metrics['dice'], label='dice coefficient')
-    # ax.plot(metrics['jaccard'], label='jaccard index')
-    # ax.plot(metrics['jaccard'], label='jaccard index')
     legend = ax.legend(loc='center right', fontsize='small')
-    plt.ylabel(opts.loss)
+    plt.ylabel('score')
     plt.xlabel('# epoch')
-    plt.title('Metrics over training - {}'.format(opts.model))
+    plt.title('Metrics over training')
     plt.savefig(os.path.join(exp_folder, 'score.png'))
     plt.close()
 
@@ -119,7 +114,7 @@ def print_conf_mat(y_test, y_pred, class_name):
 
 
 def load_metrics(opts, threshold=0.5):
-    exp_folder = os.path.join(opts.outDir, opts.dataloader, opts.model, opts.loss, 'exp_{}'.format(opts.nb))
+    exp_folder = os.path.join(opts.outDir, 'exp_{}'.format(opts.nb))
     score_val = np.load(os.path.join(exp_folder, 'result_test.npz'))
     yt, yp = np.squeeze(score_val['true']), np.squeeze(score_val['pred'])
     yp = (yp > threshold)*1.
@@ -140,5 +135,5 @@ if __name__ == '__main__':
     pred, true, ori = load_result_test(opts)
     arr = tableau(pred, true, ori)
 
-    exp_folder = os.path.join(opts.outDir, opts.dataloader, opts.model, opts.loss, 'exp_{}'.format(opts.nb))
+    exp_folder = os.path.join(opts.outDir, 'exp_{}'.format(opts.nb))
     plt.savefig(os.path.join(exp_folder, 'tableau.png'))
