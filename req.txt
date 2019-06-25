@@ -1,0 +1,15 @@
+# Name                    Version                   Build  Channel
+imageio                   2.4.1                    py37_0    anaconda
+matplotlib                3.0.2           py37h8a2030e_1001    conda-forge
+numpy                     1.15.4           py37h7e9f1db_0  
+pandas                    0.23.4           py37h04863e7_0  
+pillow                    5.4.1            py37h34e0f95_0  
+python                    3.7.2                h0371630_0  
+pytorch                   1.0.1           py3.7_cuda9.0.176_cudnn7.4.2_2    
+scikit-image              0.14.1           py37he6710b0_0    anaconda
+scikit-learn              0.21.2           py37hd81dba3_0  
+scikit-optimize           0.5.2                      py_0    conda-forge
+scipy                     1.1.0            py37h7c811a0_2  
+torchsummary              1.5.1                     <pip>
+torchvision               0.2.2                      py_3    pytorch
+
